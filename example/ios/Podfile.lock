@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - tkoul_channel_plugin (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - tkoul_channel_plugin (from `.symlinks/plugins/tkoul_channel_plugin/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  tkoul_channel_plugin:
+    :path: ".symlinks/plugins/tkoul_channel_plugin/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  tkoul_channel_plugin: afe6b2703b5718eee9ac079896ea744b9e8e6dbc
+
+PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
+
+COCOAPODS: 1.9.0
