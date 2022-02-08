@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,10 +19,11 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 /** TkoulChannelPlugin */
 public class TkoulChannelPlugin implements FlutterPlugin, MethodCallHandler {
+  //存放注册的类
   private ArrayList arryClass;
+  //创建单利 用于全局使用
   private  static volatile    TkoulChannelPlugin  singleInstance;
   private  TkoulChannelPlugin(){};
-
   public static TkoulChannelPlugin sharedInstance(){
     if (singleInstance==null){
       synchronized (TkoulChannelPlugin.class){
@@ -33,8 +35,8 @@ public class TkoulChannelPlugin implements FlutterPlugin, MethodCallHandler {
     }
     return singleInstance;
   }
-
-  public void registerClaseName(Class regClass){
+  //注册类型--相当注册协议  一旦被注册  该类具备通信能留
+  public void registerClassName(Class regClass){
     if (!TkoulChannelPlugin.sharedInstance().arryClass.contains(regClass.getName())){
       TkoulChannelPlugin.sharedInstance().arryClass.add(regClass.getName());
     }
@@ -83,7 +85,11 @@ public class TkoulChannelPlugin implements FlutterPlugin, MethodCallHandler {
       } catch (InvocationTargetException e) {
         e.printStackTrace();
       }
-
+    }else {
+      Map errorMap = new HashMap();
+      errorMap.put("code","-1");
+      errorMap.put("msg","未找到原生andriod注册类或者类名错误，包括路径错误");
+      result.success(errorMap);
     }
   }
 

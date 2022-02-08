@@ -31,22 +31,24 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      // platformVersionse = await TkoulChannelPlugin()
-      //     .objectTkoulChannelPlugin("ssss", inputPar: "sssssss");
-
-      // Object  result =await TkoulChannelPlugin()
-      //     .objectTkoulChannelPlugin("AppDelegate", inputPar: "sssssss");
-      //  Object  results =await TkoulChannelPlugin()
-      //     .objectTkoulChannelPlugin("AppDelegatel", inputPar: ["sssss","..s.s.s.s","./././/.slkkksxx"]);
-
-      // print("platformVersionse==$platformVersionse");
-      //  print("result==$result");
-      //   print("results==$results");
-
-      platformVersionse = await TkoulChannelPlugin().objectTkoulChannelPlugin(
-          "com.example.tkoul_channel_plugin_example.HelloWord",
-          inputPar: "ssssss");
-      print("platformVersionseplatformVersionse===$platformVersionse");
+      if (Theme.of(context).platform == TargetPlatform.iOS) {
+        //iOS端的例子
+        Object result = await TkoulChannelPlugin()
+            .objectTkoulChannelPlugin(callClassName: "AppDelegate", inputPar: {
+          "type": "show",
+          "msg":
+              "第一个参数callClassName为注册类(AppDelegate),第二个参数inputPar，可以为数组，字典，字符串等数据类型"
+        });
+        print("ios端AppDelegate类=$result");
+      } else {
+        platformVersionse = await TkoulChannelPlugin().objectTkoulChannelPlugin(
+            callClassName: "com.example.tkoul_channel_plugin_example.HelloWord",
+            inputPar: [
+              "第一个参数callClassName为注册类(com.example.tkoul_channel_plugin_example.HelloWord)，第二个参数inputPar为实际透传交互参数，可以为数组，字典，字符串等数据类型",
+              "数组类型"
+            ]);
+        print("Andriod端HelloWord类===$platformVersionse");
+      }
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -73,15 +75,28 @@ class _MyAppState extends State<MyApp> {
             children: [
               Text('Running on: $_platformVersion\n'),
               IconButton(
-                  onPressed: () async{
-                    Map myMap  = await TkoulChannelPlugin().objectTkoulChannelPlugin(
-          "com.example.tkoul_channel_plugin_example.MainActivity",
-          inputPar: ["sssssslist"]);
-                    setState(() {
-                      _platformVersion = myMap["message"];
-                    });
+                  onPressed: () async {
+                    if (Theme.of(context).platform == TargetPlatform.android) {
+                      Map myMap = await TkoulChannelPlugin()
+                          .objectTkoulChannelPlugin(
+                              callClassName:
+                                  "com.example.tkoul_channel_plugin_example.MainActivity",
+                              inputPar: [
+                            "第一个参数callClassName为注册类(com.example.tkoul_channel_plugin_example.MainActivity),第二个参数inputPar，可以为数组，字典，字符串等数据类型"
+                          ]);
+                      setState(() {
+                        _platformVersion = myMap["message"];
+                      });
+                    } else {
+                      Map myMap = await TkoulChannelPlugin()
+                          .objectTkoulChannelPlugin(
+                              callClassName: "AppDelegate", inputPar: {"type":"flutterBtnClick","msg": "第一个参数callClassName为注册类(AppDelegate),第二个参数inputPar，可以为数组，字典，字符串等数据类型"});
+                      setState(() {
+                        _platformVersion = myMap["message"];
+                      });
+                    }
                   },
-                  icon: Icon(Icons.ac_unit))
+                  icon: Icon(Icons.send))
             ],
           ),
         ),

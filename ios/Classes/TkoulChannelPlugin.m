@@ -24,7 +24,6 @@ static TkoulChannelPlugin *singleInstance =nil;
     }
 }
 + (void)tkRegisterWithRegistry:(NSObject<FlutterPluginRegistry>*)registry{
-    NSLog(@"registry===%@",registry);
     [TkoulChannelPlugin registerWithRegistrar:[registry registrarForPlugin:@"TkoulChannelPlugin"]];
 }
 
