@@ -1,7 +1,7 @@
 name: tkoul_channel_plugin
 description: A new flutter plugin project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/Tkoul/tkoul_channel_plugin.git
 
 environment:
   sdk: ">=2.15.1 <3.0.0"

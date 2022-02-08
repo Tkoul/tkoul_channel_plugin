@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await TkoulChannelPlugin.platformVersion, '42');
+    expect(await TkoulChannelPlugin().objectTkoulChannelPlugin(callClassName: "AppDelegete", inputPar: "42"), '42');
   });
 }
