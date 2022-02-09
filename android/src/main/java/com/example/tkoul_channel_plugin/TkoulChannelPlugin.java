@@ -6,11 +6,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import io.flutter.Log;
-import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -19,29 +16,6 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 /** TkoulChannelPlugin */
 public class TkoulChannelPlugin implements FlutterPlugin, MethodCallHandler {
-  //存放注册的类
-  private ArrayList arryClass;
-  //创建单利 用于全局使用
-  private  static volatile    TkoulChannelPlugin  singleInstance;
-  private  TkoulChannelPlugin(){};
-  public static TkoulChannelPlugin sharedInstance(){
-    if (singleInstance==null){
-      synchronized (TkoulChannelPlugin.class){
-        if (singleInstance==null){
-          singleInstance = new TkoulChannelPlugin();
-          singleInstance.arryClass = new ArrayList();
-        }
-      }
-    }
-    return singleInstance;
-  }
-  //注册类型--相当注册协议  一旦被注册  该类具备通信能留
-  public void registerClassName(Class regClass){
-    if (!TkoulChannelPlugin.sharedInstance().arryClass.contains(regClass.getName())){
-      TkoulChannelPlugin.sharedInstance().arryClass.add(regClass.getName());
-    }
-  }
-
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -51,9 +25,8 @@ public class TkoulChannelPlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "tkoul_channel_plugin");
-    channel.setMethodCallHandler(TkoulChannelPlugin.sharedInstance());
+    channel.setMethodCallHandler(this);
   }
-
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull final Result result) {
     String method = call.method;
@@ -61,8 +34,10 @@ public class TkoulChannelPlugin implements FlutterPlugin, MethodCallHandler {
       result.notImplemented();
       return;
     }
+
     ArrayList arguments = (ArrayList) call.arguments;
     String className = !arguments.isEmpty()?(String) arguments.get(0):"";
+    ArrayList  arryClass = TkoulChannelRegist.sharedInstance().arryClass;
     if (arryClass.contains(className)) {
       Class classDo = null;
       try {

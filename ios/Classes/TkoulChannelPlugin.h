@@ -15,6 +15,6 @@
 
 - (void)registerClaseName:(Class)regClass;
 
-+ (void)tkRegisterWithRegistry:(NSObject<FlutterPluginRegistry>*)registry;
++ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar;
 
 @end

@@ -13,12 +13,17 @@ import io.flutter.embedding.engine.FlutterEngine;
 
 import com.example.tkoul_channel_plugin.TkoulChannelBlock;
 import com.example.tkoul_channel_plugin.TkoulChannelPlugin;
+import com.example.tkoul_channel_plugin.TkoulChannelRegist;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends FlutterActivity {
+
+    public  static void registThisClass(){
+        TkoulChannelRegist.registerClassName(MainActivity.class);
+    }
 
     static  int a = 4;
     public  static void  tkoulChannlePlugin(Object arguments, TkoulChannelBlock b){

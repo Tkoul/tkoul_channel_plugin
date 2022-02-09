@@ -11,7 +11,11 @@ import io.flutter.Log;
 
 public class HelloWord {
 
+
     public  static void  tkoulChannlePlugin(Object arguments, TkoulChannelBlock b){
+
+        MainActivity.registThisClass();
+        
         Log.e("传进来的参数是",arguments.toString());
         if (b != null) {
             Map ksks = new HashMap();

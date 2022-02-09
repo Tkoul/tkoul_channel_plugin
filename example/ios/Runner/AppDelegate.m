@@ -3,31 +3,17 @@
 #import "TkoulChannelPlugin.h"
 
 @interface AppDelegate()<TkoulChannelPluginDelegete>
-{
-    TkoulChannelPlugin *plugs;
-}
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application
-    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//  [GeneratedPluginRegistrant registerWithRegistry:self];
-  // Override point for customization after application launch.
-//    [TkoulChannelPluginSingle sharedInstance];
-//  
-
-//    [TkoulChannelPlugin  registerWithRegistrar:self];
-//    [[TkoulChannelPlugin sharedInstance] registerClaseName:self.class];
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[TkoulChannelPlugin sharedInstance] setDelegete:self];
-    [TkoulChannelPlugin tkRegisterWithRegistry:self];
+    [GeneratedPluginRegistrant registerWithRegistry:self];
     
-    
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        plugs = [[TkoulChannelPlugin alloc]init];
-//        [plugs setDelegete:self];
-//    });
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+    // Override point for customization after application launch.
+    return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 
@@ -50,7 +36,7 @@ static int a =0;
             result(@{@"code":@"1",@"message":@"hello"});
         }
     }
-  
+    
 }
 
 

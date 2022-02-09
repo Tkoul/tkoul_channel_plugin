@@ -23,15 +23,12 @@ static TkoulChannelPlugin *singleInstance =nil;
         [self.arryClass addObject:stringClass];
     }
 }
-+ (void)tkRegisterWithRegistry:(NSObject<FlutterPluginRegistry>*)registry{
-    [TkoulChannelPlugin registerWithRegistrar:[registry registrarForPlugin:@"TkoulChannelPlugin"]];
-}
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel
                                      methodChannelWithName:@"tkoul_channel_plugin"
                                      binaryMessenger:[registrar messenger]];
-    TkoulChannelPlugin* instance = [TkoulChannelPlugin sharedInstance];;
+    TkoulChannelPlugin* instance = [TkoulChannelPlugin sharedInstance];
     [registrar addMethodCallDelegate:instance channel:channel];
 }
 
